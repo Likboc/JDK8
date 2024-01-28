@@ -1,26 +1,30 @@
 package concurrent;
 
 
-
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 public class ThreadTest {
 
-    public static void main(String[] args) {
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(8,16,10, TimeUnit.SECONDS,new LinkedBlockingQueue<>());
-        for(int i = 0; i<5; i++){
-            int taskid = i;
-            executor.execute(()->{
-                System.out.println(String.valueOf(taskid));
+    public static void main(String[] args) throws InterruptedException {
+        Object hi = new Object();
+        Thread td = new Thread(()->{
+            System.out.println("hi");
+            synchronized (hi) {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            });
-        }
-        executor.shutdown();
+                System.out.println("hello,world");
+            }
+        });
+        td.start();
+        Thread td2 = new Thread(()->{
+            System.out.println("hi");
+            synchronized (hi) {
+                System.out.println("hello,world");
+            }
+        });
+        td2.start();
+        Thread.sleep(1000);
+        System.out.println(td2.getState());
     }
 }
