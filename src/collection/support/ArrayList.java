@@ -50,7 +50,7 @@ public class ArrayList<E>  {
     }
 
     // 扩容
-    public void kuorong() {
+    public void grow() {
         Object[] old = tmp;
         Object[] newArr = Arrays.copyOf(tmp,size * 2);
         tmp = newArr;
@@ -59,7 +59,7 @@ public class ArrayList<E>  {
 
     public boolean check() {
         if(tmp.length > Math.floor(size * LoadFactor)) {
-            kuorong();
+            grow();
             return true;
         }else{
             return false;
