@@ -9,60 +9,52 @@ import java.util.Arrays;
  * @param <E>
  */
 public class ArrayList<E>  {
-    public static  Object[] tmp = {};
 
-    public static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
-
+    // 元素数量，可充当指针用
     private int size;
-
+    // 存储数据数组
     transient Object[] elementData;
-
-    // 版本号
+    // CAS版本号
     protected transient int modCount = 0;
 
-    private double LoadFactor = 0.75d;
-
-
-    private int count = 0;
-    // add
-    public void add(E element) {
-        tmp[count] = element;
-        count++;
-    }
-    // 删除，涉及到元素的移动
-    public void remove(E element) {
-        for(int i = 0; i < count; i++) {
-            if(tmp[i] == element) {
-                while(i < count) {
-                    tmp[i] = tmp[i + 1];
-                    i++;
-                }
-                break;
-            }
+    /**
+     * 增加元素
+     * @param element
+     * @param elementData
+     * @param size
+     */
+    public void add(E element,Object[] elementData,int size) {
+        if(elementData.length == size) {
+            this.grow();
         }
+        elementData[size] = element;
+        this.size++;
     }
-    public void update(E element) {
-        for(int i = 0; i < count; i++) {
-            if(tmp[i].equals(element)) {
-                tmp[i] = element;
-            }
+
+    /**
+     * 删除元素
+     * @param index
+     */
+    public void remove(int index) {
+        for(int i = index; i < size - 1; i++) {
+            elementData[i] = elementData[i + 1];
         }
     }
 
-    // 扩容
+    /**
+     * 更新元素
+     * @param element
+     */
+    public void update(E element,int index) {
+        elementData[index] = element;
+    }
+
+    /**
+     * 扩容为原来2倍
+     */
     public void grow() {
-        Object[] old = tmp;
-        Object[] newArr = Arrays.copyOf(tmp,size * 2);
-        tmp = newArr;
-        size = size << 2;
+        elementData = Arrays.copyOf(elementData,elementData.length * 2);
     }
 
-    public boolean check() {
-        if(tmp.length > Math.floor(size * LoadFactor)) {
-            grow();
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 }
