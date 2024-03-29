@@ -1,7 +1,5 @@
 package algorithm.sort;
 
-import org.junit.Test;
-
 public class BubbleSort {
     public int[] sort(int[] array) {
         int len = array.length;
@@ -16,14 +14,5 @@ public class BubbleSort {
             }
         }
         return array;
-    }
-
-    @Test
-    public void test(){
-        int[] ans = new int[] {43,2,4343,222};
-        ans = sort(ans);
-        for(int i : ans) {
-            System.out.println(i);
-        }
     }
 }
