@@ -1,21 +1,23 @@
 package collection;
 
-import java.util.Iterator;
+public interface Collection<E> {
 
-public interface Collection<E> extends Iterator<E> {
-
+    /**
+     * 返回集合大小，为什么是int
+     */
     int size();
 
     boolean isEmpty();
 
     boolean contains(Object o);
 
+    /**
+     * 提供集合转换为数组的方式
+     * @return
+     */
     Object[] toArray();
 
-    /**
-     * CRUD
-     * add
-     * remove
-     */
-    void clear();
+    boolean add(E e);
+    boolean remove(Object o);
+
 }
