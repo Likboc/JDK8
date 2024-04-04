@@ -9,4 +9,8 @@ public class LazySingleton {
         }
         return lazySingleton;
     }
+
+    private LazySingleton() {
+
+    }
 }
