@@ -4,10 +4,14 @@ package design.creational.singleton;
  * 饿汉式单例
  */
 public class EagerSingleton {
-    private static EagerSingleton singleton = new EagerSingleton();
+    private static final EagerSingleton singleton = new EagerSingleton();
 
-    static EagerSingleton get() {
+    public static EagerSingleton getInstance() {
         return singleton;
+    }
+
+    private EagerSingleton() {
+
     }
 
 }
